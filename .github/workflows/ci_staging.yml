@@ -11,6 +11,9 @@ jobs:
     steps:
       - run: |
           echo "${{ secrets.SSH_PRIVATEKEY }}" &> ~/ssh_key
+          mkdir ~/.ssh
+          echo "${{ secrets.KNOWN_HOSTS }}" &> ~/.ssh/known_hosts
+          chmod 700 ~/.ssh/known_hosts
           ssh -i ~/ssh_key root@139.59.57.59
           cd week-25-ci-next-app && git pull
           pnpm install
